@@ -17,9 +17,6 @@ public class FileDocument {
     @Lob
     private byte[] docFile;
 
-    public Long getId() {
-        return id;
-    }
 
     public String getFileName() {
         return fileName;
@@ -27,10 +24,6 @@ public class FileDocument {
 
     public byte[] getDocFile() {
         return docFile;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public void setFileName(String fileName) {

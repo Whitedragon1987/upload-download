@@ -1,4 +1,4 @@
-package nl.novi.uploaddownload.service;
+package nl.novi.uploaddownload.services;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;

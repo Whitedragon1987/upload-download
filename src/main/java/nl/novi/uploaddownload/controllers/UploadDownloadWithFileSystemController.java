@@ -1,12 +1,12 @@
-package nl.novi.uploaddownload.fileUploadDownloadControllers;
+package nl.novi.uploaddownload.controllers;
 
-import nl.novi.uploaddownload.model.FileUploadResponse;
-import nl.novi.uploaddownload.service.FileStorageService;
+import nl.novi.uploaddownload.FileUploadResponse.FileUploadResponse;
+import nl.novi.uploaddownload.services.DatabaseService;
+import nl.novi.uploaddownload.services.FileStorageService;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -17,17 +17,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 @CrossOrigin
 @RestController
 public class UploadDownloadWithFileSystemController {
     private final FileStorageService fileStorageService;
+    private final DatabaseService databaseService;
 
-    public UploadDownloadWithFileSystemController(FileStorageService fileStorageService) {
+    public UploadDownloadWithFileSystemController(FileStorageService fileStorageService, DatabaseService databaseService) {
         this.fileStorageService = fileStorageService;
+        this.databaseService = databaseService;
     }
 
 //    post for single upload
@@ -105,17 +105,10 @@ public class UploadDownloadWithFileSystemController {
 
         try(ZipOutputStream zos = new ZipOutputStream(response.getOutputStream())){
             Arrays.stream(files).forEach(file -> {
-                Resource resource = fileStorageService.downLoadFile(file);
-                ZipEntry zipEntry = new ZipEntry(Objects.requireNonNull(resource.getFilename()));
                 try {
-                    zipEntry.setSize(resource.contentLength());
-                    zos.putNextEntry(zipEntry);
-
-                    StreamUtils.copy(resource.getInputStream(), zos);
-
-                    zos.closeEntry();
+                    databaseService.createZipEntry(file, zos);
                 } catch (IOException e) {
-                    System.out.println("some exception while zipping");
+                    e.printStackTrace();
                 }
             });
             zos.finish();
