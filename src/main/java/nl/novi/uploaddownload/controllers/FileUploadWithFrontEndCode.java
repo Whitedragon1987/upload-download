@@ -1,4 +1,4 @@
-package nl.novi.uploaddownload.fileUploadDownloadControllers;
+package nl.novi.uploaddownload.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

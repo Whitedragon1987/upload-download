@@ -1,9 +1,9 @@
-package nl.novi.uploaddownload.fileUploadDownloadControllers;
+package nl.novi.uploaddownload.controllers;
 
-import nl.novi.uploaddownload.model.FileDocument;
-import nl.novi.uploaddownload.model.FileUploadResponse;
-import nl.novi.uploaddownload.repository.DocFileDao;
-import nl.novi.uploaddownload.service.DatabaseService;
+import nl.novi.uploaddownload.models.FileDocument;
+import nl.novi.uploaddownload.models.FileUploadResponse;
+import nl.novi.uploaddownload.repositories.DocFileDao;
+import nl.novi.uploaddownload.services.DatabaseService;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

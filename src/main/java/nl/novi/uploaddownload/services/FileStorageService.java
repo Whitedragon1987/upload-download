@@ -1,5 +1,7 @@
-package nl.novi.uploaddownload.service;
+package nl.novi.uploaddownload.services;
 
+import nl.novi.uploaddownload.models.FileUploadResponse;
+import nl.novi.uploaddownload.repositories.FileRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -26,8 +28,9 @@ public class FileStorageService {
     @Value("${my.upload_location}")
     private Path fileStoragePath;
     private final String fileStorageLocation;
+    private final FileRepository repository;
 
-    public FileStorageService(@Value("${my.upload_location}") String fileStorageLocation) {
+    public FileStorageService(@Value("${my.upload_location}") String fileStorageLocation, FileRepository repository) {
         fileStoragePath = Paths.get(fileStorageLocation).toAbsolutePath().normalize();
 
         this.fileStorageLocation = fileStorageLocation;
@@ -37,6 +40,7 @@ public class FileStorageService {
         } catch (IOException e) {
             throw new RuntimeException("Issue in creating file directory");
         }
+        this.repository = repository;
 
     }
 
@@ -51,6 +55,7 @@ public class FileStorageService {
         } catch (IOException e) {
             throw new RuntimeException("Issue in storing the file", e);
         }
+        repository.save(new FileUploadResponse(fileName, file.getContentType(), filePath.toString()));
 
         return fileName;
     }

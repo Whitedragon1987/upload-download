@@ -1,7 +1,11 @@
-package nl.novi.uploaddownload.model;
+package nl.novi.uploaddownload.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+@Entity
 public class FileUploadResponse {
 
+    @Id
     private String fileName;
 
     private String contentType;
@@ -12,6 +16,10 @@ public class FileUploadResponse {
         this.fileName = fileName;
         this.contentType = contentType;
         this.url = url;
+    }
+
+    public FileUploadResponse() {
+
     }
 
     public String getFileName() {

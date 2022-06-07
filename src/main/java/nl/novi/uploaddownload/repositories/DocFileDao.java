@@ -1,6 +1,6 @@
-package nl.novi.uploaddownload.repository;
+package nl.novi.uploaddownload.repositories;
 
-import nl.novi.uploaddownload.model.FileDocument;
+import nl.novi.uploaddownload.models.FileDocument;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.transaction.Transactional;

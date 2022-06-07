@@ -1,4 +1,4 @@
-package nl.novi.uploaddownload.model;
+package nl.novi.uploaddownload.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
